@@ -22,6 +22,11 @@ const Navbar = () => {
                 Hakkımızda
               </Link>
             </li>
+            <li>
+              <Link to="/courses" className="text-white hover:text-gray-300">
+                Kurslar
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
