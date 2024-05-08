@@ -1,44 +1,40 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
-// Var olan kurs türleri ve bu türlere göre derslerin listesi
-const coursesData = {
-  "Dekoratif El Ürünleri Yapımı": ["Jel Mum Yapımı", "Makrome Çanta Yapımı"],
-  "Tekstil Tasarımı": ["Keçe Yapımı", "Kırkyama", "Pike Dikimi"],
-};
+// Var olan kurs türleri BACKEND GELECEK
+const lessonType = ["Dekoratif El Ürünleri Yapımı", "Tekstil Tasarımı"];
+
+//eğitmen listesi BACKEND GELECEK
+const instructors = ["Mehmet Keçeci", "Emir Çağrı", "Esma Ekmekci"];
+
+//eklenen dersin adı, türü, eğitmeni ve günü gönderilecek BACKEND
 
 const AddLesson = () => {
-  // State'ler
   const [courseType, setCourseType] = useState("");
   const [lessonName, setLessonName] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedInstructor, setSelectedInstructor] = useState("");
   const [addedLessons, setAddedLessons] = useState([]);
 
-  // Kurs türü seçimi
   const handleCourseTypeChange = (event) => {
     setCourseType(event.target.value);
     setLessonName(""); // Ders ismi sıfırlanır
   };
 
-  // Ders adı girişi
   const handleLessonNameChange = (event) => {
     setLessonName(event.target.value);
   };
 
-  // Gün seçimi
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
   };
 
-  // Hoca seçimi
   const handleInstructorChange = (event) => {
     setSelectedInstructor(event.target.value);
   };
 
-  // Ders ekleme işlevi
   const addLesson = () => {
-    // Ders bilgilerini ekleme
+    // Ders bilgilerini ekle
     const lesson = {
       courseType,
       lessonName,
@@ -61,7 +57,7 @@ const AddLesson = () => {
           Ders Ekleme Sayfası
         </h1>
         <div className="mb-4">
-          <label className="block mb-2 font-semibold">Kurs Türü:</label>
+          <label className="block mb-2 font-semibold">Ders Türü:</label>
           <select
             className="border border-gray-400 rounded p-2"
             value={courseType}
@@ -69,9 +65,9 @@ const AddLesson = () => {
           >
             <option value="">Seçiniz</option>
             {/* Var olan kurs türleri burada dinamik olarak listelenir */}
-            {Object.keys(coursesData).map((type, index) => (
-              <option key={index} value={type}>
-                {type}
+            {lessonType.map((course, index) => (
+              <option key={index} value={course}>
+                {course}
               </option>
             ))}
           </select>
@@ -109,16 +105,17 @@ const AddLesson = () => {
         )}
         {courseType && lessonName && selectedDay && (
           <div className="mb-4">
-            <label className="block mb-2 font-semibold">Öğretmen:</label>
+            <label className="block mb-2 font-semibold">Eğitmen:</label>
             <select
               className="border border-gray-400 rounded p-2"
               value={selectedInstructor}
               onChange={handleInstructorChange}
             >
-              <option value="">Seçiniz</option>
-              <option value="Ali">Ali</option>
-              <option value="Meryem">Meryem</option>
-              {/* Diğer öğretmenler buraya eklenebilir */}
+              {instructors.map((instructor, index) => (
+                <option key={index} value={instructor}>
+                  {instructor}
+                </option>
+              ))}
             </select>
           </div>
         )}
@@ -138,8 +135,8 @@ const AddLesson = () => {
           <ul>
             {addedLessons.map((lesson, index) => (
               <li key={index}>
-                <strong>{lesson.lessonName}</strong> ({lesson.courseType}) -{" "}
-                {lesson.day} - {lesson.instructor}
+                <strong className="text-2xl px-5">{lesson.lessonName}</strong> (
+                {lesson.courseType}) - {lesson.day} - {lesson.instructor}
               </li>
             ))}
           </ul>

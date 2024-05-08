@@ -24,7 +24,7 @@ export default function Footage() {
           <p className="text-gray-600">Öğrenci No: 123-456-7890</p>
         </div>
         <div className="bg-white rounded-lg shadow-md p-4">
-          <h2 className="text-lg font-semibold mb-1">Emir Çağrı???</h2>
+          <h2 className="text-lg font-semibold mb-1">Emir Çağrı Aykın</h2>
           <p className="text-gray-600 font-light mb-3">Backend Developer</p>
 
           <p className="text-gray-600">Öğrenci No: 123-456-7890</p>

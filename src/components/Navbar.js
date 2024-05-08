@@ -27,6 +27,11 @@ const Navbar = () => {
                 Kurslar
               </Link>
             </li>
+            <li>
+              <Link to="/operations" className="text-white hover:text-gray-300">
+                İşlemler
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -3,25 +3,38 @@ import Navbar from "../components/Navbar";
 
 const dummyData = [
   {
-    courseType: "Boyama",
-    name: "Ahşap Boyama",
-    time: "Pazartesi 12.00",
-    instructor: "Meryem",
-    registered: "12/20",
+    packageName: "El Sanatları Paketi",
+    courses: [
+      {
+        name: "Ahşap Boyama",
+        time: "Pazartesi 12.00",
+        instructor: "Meryem",
+      },
+      {
+        name: "Parmak Boyama",
+        time: "Çarşamba 13.00",
+        instructor: "Ali",
+      },
+    ],
+    price: "1500 TL",
+    capacity: "9/25",
   },
   {
-    courseType: "Boyama",
-    name: "Parmak Boyama",
-    time: "Çarşamba 13.00",
-    instructor: "Ali",
-    registered: "5/20",
-  },
-  {
-    courseType: "Çizim",
-    name: "Karakalem Çizimi",
-    time: "Cumartesi 13.00",
-    instructor: "Ali",
-    registered: "20/20",
+    packageName: "Resim Sanatı Paketi",
+    courses: [
+      {
+        name: "Karakalem Çizimi",
+        time: "Cumartesi 13.00",
+        instructor: "Ali",
+      },
+      {
+        name: "Yağlı Boya",
+        time: "Çarşamba 13.00",
+        instructor: "Yeşim",
+      },
+    ],
+    price: "2000 TL",
+    capacity: "12/30",
   },
 ];
 
@@ -30,42 +43,31 @@ const Courses = () => {
     <>
       <Navbar />
       <div className="w-full h-full py-8 px-[120px]">
-        <div className="mb-8 w-full h-[66px] grid grid-cols-5 border border-black  bg-gray-200 rounded-full font-serif text-xl">
-          <div className="flex h-full items-center justify-center font-semibold">
-            Türü
-          </div>
-          <div className="flex h-full items-center pl-8 font-semibold">Adı</div>
-          <div className="flex h-full items-center justify-center font-semibold">
-            Zamanı
-          </div>
-          <div className="flex h-full items-center justify-center font-semibold">
-            Eğitmeni
-          </div>
-          <div className="flex h-full items-center justify-center font-semibold">
-            Kontenjan Durumu
-          </div>
-        </div>
-
-        {dummyData.map((dummy) => (
+        {dummyData.map((packageData) => (
           <div
-            key={dummy.name}
-            className="mb-8 w-full h-[66px] grid grid-cols-5 border border-black cursor-pointer hover:scale-105 duration-100 transition-all rounded-full"
+            key={packageData.packageName}
+            className="mb-8 bg-white rounded-lg p-4"
           >
-            <div className="flex h-full items-center justify-center">
-              {dummy.courseType}
+            <div className="mb-4 text-xl font-semibold bg-slate-500 text-zinc-50 p-3 w-7/12 rounded-2xl ">
+              {packageData.packageName}
             </div>
-            <div className="flex h-full items-center pl-8 font-bold">
-              {dummy.name}
+            <div className="font-bold flex ">
+              <div className="w-1/5">Kurs Adı </div>
+              <div className="w-1/5">Eğitmen </div>
+              <div className="w-1/5">Zaman </div>
             </div>
-            <div className="flex h-full items-center justify-center">
-              {dummy.time}
+            {packageData.courses.map((course) => (
+              <div key={course.name} className="mb-4 flex items-center ">
+                <div className="w-1/5">{course.name}</div>
+                <div className="w-1/5">{course.instructor}</div>
+
+                <div className="w-1/5">{course.time}</div>
+              </div>
+            ))}
+            <div className="font-semibold">
+              Kapasite: {packageData.capacity}
             </div>
-            <div className="flex h-full items-center justify-center">
-              {dummy.instructor}
-            </div>
-            <div className="flex h-full items-center justify-center">
-              {dummy.registered}
-            </div>
+            <div className="font-semibold">Fiyat: {packageData.price}</div>
           </div>
         ))}
       </div>
