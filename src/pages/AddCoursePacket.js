@@ -6,7 +6,7 @@ const AddCoursePacket = () => {
   const [capacity, setCapacity] = useState("");
   const [selectedCourses, setSelectedCourses] = useState([]);
 
-  // Kurs türleri ve bu türlerin altındaki dersler
+  // Kurs türleri ve bu türlerin altındaki dersler BACKENDDEN GELECEK
   const courseTypes = [
     {
       type: "Tekstil Tasarımı",
@@ -21,6 +21,8 @@ const AddCoursePacket = () => {
       ],
     },
   ];
+  //ders ekleme yaparken kolaylık olması için ders seçiminde dersin zamanını da göster yanında
+  ///OLUŞTURULAN PAKETİN ADI, KAPASİTESİ VE EKLENEN DERSLERİ BACKENDE DÖN
 
   const [selectedType, setSelectedType] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");

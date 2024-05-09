@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
 const AddStudent = () => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name,
+      phone,
+      address,
+      email,
+    };
+    //URL AYARLA BACKENDE BU BİLGİLER gidecek
+    fetch("API_ENDPOINT", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
       <Navbar />
@@ -10,7 +41,7 @@ const AddStudent = () => {
           <h1 className="text-3xl font-semibold mb-4 text-center">
             Kursiyer Ekle
           </h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 htmlFor="name"
@@ -22,6 +53,8 @@ const AddStudent = () => {
                 type="text"
                 id="name"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -35,6 +68,8 @@ const AddStudent = () => {
                 type="text"
                 id="phone"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -48,6 +83,8 @@ const AddStudent = () => {
                 type="text"
                 id="address"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -61,6 +98,8 @@ const AddStudent = () => {
                 type="email"
                 id="email"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <button

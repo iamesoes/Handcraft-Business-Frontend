@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-
+//EKLENECEKLER:.::: id uid, fiyat float, KAPASİTE int, şuanki katılım int, string gün, instructer yok, sadece gün,type
 const dummyData = [
   {
     packageName: "El Sanatları Paketi",
@@ -52,7 +52,7 @@ const Courses = () => {
               {packageData.packageName}
             </div>
             <div className="font-bold flex ">
-              <div className="w-1/5">Kurs Adı </div>
+              <div className="w-1/5">Ders Adı </div>
               <div className="w-1/5">Eğitmen </div>
               <div className="w-1/5">Zaman </div>
             </div>

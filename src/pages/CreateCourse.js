@@ -8,6 +8,7 @@ const lessonType = ["Dekoratif El Ürünleri Yapımı", "Tekstil Tasarımı"];
 const instructors = ["Mehmet Keçeci", "Emir Çağrı", "Esma Ekmekci"];
 
 //eklenen dersin adı, türü, eğitmeni ve günü gönderilecek BACKEND
+//String name, String day, UUID handicraftTypeId,UUID instructorId
 
 const AddLesson = () => {
   const [courseType, setCourseType] = useState("");
