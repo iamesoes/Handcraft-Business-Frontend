@@ -1,0 +1,165 @@
+{
+    "customers": [
+        {
+            "id":1,
+            "name": "John",
+            "surname":"Doe",
+            "userName": "deneme",
+            "phoneNumber": "+1234567890",
+            "address": "123 Main St, Cityville",
+            "eMail": "john@example.com",
+            "course_info": [
+                {
+                "course_name": "Introduction to Programming",
+                "date": "2024-06-15",
+                "payment_amount": 100
+                },
+                {
+                "course_name": "Web Development Basics",
+                "date": "2024-07-10",
+                "payment_amount": 150
+                }
+            ],
+            "taken_courses": ["Introduction to Programming", "Web Development Basics"]
+        },
+        {
+            "id":2,
+            "name": "Jane",
+            "surname":"Smith",
+            "userName": "deneme2",
+            "phoneNumber": "+1987654321",
+            "address": "456 Elm St, Townsville",
+            "eMail": "jane@example.com",
+            "course_info": [
+                {
+                "course_name": "Data Science Fundamentals",
+                "date": "2024-06-20",
+                "payment_amount": 200
+                }
+            ],
+            "taken_courses": ["Data Science Fundamentals"]
+        }
+    ],
+
+    "trainers": [
+        {
+            "id":1,
+            "name": "Alice Trainer",
+            "phone_number": "+1234567890",
+            "house_number": "789",
+            "address": "789 Oak St, Villagetown",
+            "email": "alice@example.com",
+            "working_hours": [
+                {
+                    "day": "Monday",
+                    "start_time": "09:00",
+                    "end_time": "17:00"
+                },
+                {
+                    "day": "Tuesday",
+                    "start_time": "10:00",
+                    "end_time": "18:00"
+                },
+                {
+                    "day": "Wednesday",
+                    "start_time": "09:30",
+                    "end_time": "16:30"
+                }
+            ],
+            "course_info": [
+                {
+                    "course_name": "Yoga Basics",
+                    "details": "Learn foundational yoga poses and breathing techniques.",
+                    "payment_amount": 50
+                },
+                {
+                    "course_name": "Pilates for Beginners",
+                    "details": "Introduction to core strengthening and flexibility exercises.",
+                    "payment_amount": 60
+                }
+            ]
+        },
+        {
+            "id":2,
+            "name": "Bob Trainer",
+            "phone_number": "+1987654321",
+            "house_number": "101",
+            "address": "101 Maple St, Forestville",
+            "email": "bob@example.com",
+            "working_hours": [
+                {
+                "day": "Thursday",
+                "start_time": "08:00",
+                "end_time": "16:00"
+                },
+                {
+                "day": "Friday",
+                "start_time": "09:30",
+                "end_time": "17:30"
+                }
+            ],
+            "course_info": [
+                {
+                "course_name": "High Intensity Interval Training (HIIT)",
+                "details": "Intense cardio and strength workout with short rest intervals.",
+                "payment_amount": 70
+                }
+            ]
+        }
+    ],
+
+    "courses": [
+        {
+          "id": "1",
+          "name": "Basket Weaving Workshop",
+          "currentCourseFee": 200,
+          "maxAttendants": 20,
+          "attendantCount": 10,
+          "handicrafts": [
+            {
+              "id": "1",
+              "fee": "50",
+              "handicraftTypeName": "Basket Weaving",
+              "instructorName": "John Doe",
+              "day": "MONDAY"
+            },
+            {
+              "id": "2",
+              "fee": "50",
+              "handicraftTypeName": "Basket Weaving",
+              "instructorName": "Jane Doe",
+              "day": "WEDNESDAY"
+            }
+          ],
+          "days": ["MONDAY", "WEDNESDAY"]
+        },
+        {
+          "id": "2",
+          "name": "Pottery Class",
+          "currentCourseFee": 150,
+          "maxAttendants": 15,
+          "attendantCount": 5,
+          "handicrafts": [
+            {
+              "id": "3",
+              "fee": "75",
+              "handicraftTypeName": "Pottery",
+              "instructorName": "Alice Smith",
+              "day": "TUESDAY"
+            },
+            {
+              "id": "4",
+              "fee": "75",
+              "handicraftTypeName": "Pottery",
+              "instructorName": "Bob Johnson",
+              "day": "THURSDAY"
+            }
+          ],
+          "days": ["TUESDAY", "THURSDAY"]
+        }
+      ]
+
+}
+
+    
+  

@@ -8,6 +8,8 @@ import StaffOperations from "./pages/Operations";
 import AddStudent from "./pages/AddStudent";
 import AddTeacher from "./pages/AddTeacher";
 import AddCoursePacket from "./pages/AddCoursePacket";
+import GetUserInfo from "./pages/GetUserInfo";
+import SellCourse from "./pages/SellCourse"
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/add-student" element={<AddStudent />} />
           <Route path="/add-teacher" element={<AddTeacher />} />
           <Route path="/create-packet" element={<AddCoursePacket />} />
+          <Route path="/getUserInfo" element={<GetUserInfo />} />
+          <Route path="/sellCourse" element={<SellCourse />} />
         </Routes>
       </BrowserRouter>
     </div>
