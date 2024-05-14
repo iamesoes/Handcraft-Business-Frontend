@@ -1,0 +1,188 @@
+{
+    "customers": [
+    
+        {
+            "userView": {
+            "id": "2361c82d-c8c1-463e-a13f-367f015ed286",
+            "userName": "mehmetKececi",
+            "name": "Kececi",
+            "surname": "Mehmet",
+            "eMail": "Kececi",
+            "phoneNumber": "5538518386",
+            "address": "FSM"
+            },
+            "courseViewList": [
+            {
+                "id": "df33b4e4-3357-4aa4-98b1-d4e0ab4221ad",
+                "name": "test1",
+                "currentCourseFee": 175.0,
+                "maxAttendants": 50,
+                "attendantCount": 1,
+                "handicrafts": [
+                {
+                    "id": "b28fb780-de40-4fbb-9cd8-e35f17d29f44",
+                    "fee": 175.0,
+                    "handicraftTypeName": "testType2",
+                    "instructorName": "white",
+                    "instructorSurname": "walter",
+                    "day": "MONDAY"
+                },
+                {
+                    "id": "b28fb780-de40-4fbb-9cd8-e35f17d29f41",
+                    "fee": 175.0,
+                    "handicraftTypeName": "testType2",
+                    "instructorName": "white",
+                    "instructorSurname": "walter",
+                    "day": "MONDAY"
+                }
+                ],
+                "days": [
+                "MONDAY"
+                ]
+            }
+            ]
+        },
+        {
+            "userView": {
+            "id": "7429eae7-58c5-4d82-8e5f-3e31ff9b3cf4",
+            "userName": "johndoe",
+            "name": "John",
+            "surname": "Doe",
+            "eMail": "johndoe@example.com",
+            "phoneNumber": "1234567890",
+            "address": "123 Main St"
+            },
+            "courseViewList": [
+            {
+                "id": "98f49d6e-593f-4c1e-8821-d16c997b0f02",
+                "name": "test2",
+                "currentCourseFee": 200.0,
+                "maxAttendants": 30,
+                "attendantCount": 2,
+                "handicrafts": [],
+                "days": [
+                "TUESDAY"
+                ]
+            }
+            ]
+        }
+        
+    ],
+
+    "trainers": [
+        
+        {
+            "id": "4579c261-3e6e-436b-bbb5-e1a5690e63c2",
+            "userName": "WalterWhite",
+            "name": "white",
+            "surname": "walter",
+            "eMail": "white",
+            "phoneNumber": "5531121111",
+            "address": "Albequerque- U.S.A.",
+            "weekdayFee": 175.0,
+            "weekendFee": 250.0,
+            "days": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY"
+            ],
+            "handicraftTypes": [
+                {
+                    "id": "7a82c043-071d-417c-9bbf-669696076822",
+                    "name": "testType",
+                    "explanation": "testType"
+                },
+                {
+                    "id": "d9c0f914-96f6-4735-bf8f-c4f2ca2599d8",
+                    "name": "testType2",
+                    "explanation": "testType2"
+                }
+            ]
+        },
+        {
+            "id": "4579c261",
+            "userName": "JessePinkman",
+            "name": "pinkman",
+            "surname": "jesse",
+            "eMail": "pinkman",
+            "phoneNumber": "5531122222",
+            "address": "Albequerque- U.S.A.",
+            "weekdayFee": 200.0,
+            "weekendFee": 275.0,
+            "days": [
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY"
+            ],
+            "handicraftTypes": [
+                {
+                    "id": "4579c261342",
+                    "name": "type1",
+                    "explanation": "type1"
+                },
+                {
+                    "id": "4579c261432",
+                    "name": "type2",
+                    "explanation": "type2"
+                }
+            ]
+        }
+        
+    ],
+
+    "courses": [
+        {
+          "id": "1",
+          "name": "Basket Weaving Workshop",
+          "currentCourseFee": 200,
+          "maxAttendants": 20,
+          "attendantCount": 10,
+          "handicrafts": [
+            {
+              "id": "1",
+              "fee": "50",
+              "handicraftTypeName": "Basket Weaving",
+              "instructorName": "John Doe",
+              "day": "MONDAY"
+            },
+            {
+              "id": "2",
+              "fee": "50",
+              "handicraftTypeName": "Basket Weaving",
+              "instructorName": "Jane Doe",
+              "day": "WEDNESDAY"
+            }
+          ],
+          "days": ["MONDAY", "WEDNESDAY"]
+        },
+        {
+          "id": "2",
+          "name": "Pottery Class",
+          "currentCourseFee": 150,
+          "maxAttendants": 15,
+          "attendantCount": 5,
+          "handicrafts": [
+            {
+              "id": "3",
+              "fee": "75",
+              "handicraftTypeName": "Pottery",
+              "instructorName": "Alice Smith",
+              "day": "TUESDAY"
+            },
+            {
+              "id": "4",
+              "fee": "75",
+              "handicraftTypeName": "Pottery",
+              "instructorName": "Bob Johnson",
+              "day": "THURSDAY"
+            }
+          ],
+          "days": ["TUESDAY", "THURSDAY"]
+        }
+      ]
+
+}
+
+    
+  
+

@@ -8,8 +8,8 @@ import { useState, useEffect } from "react";
 
 
 export default function SellCourse() {
-    const { errorCourse, isPendingCourse, data: courses } = useGetFetch('http://localhost:8080/course/viewAll')
-    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8080/customers')
+    const { errorCourse, isPendingCourse, data: courses } = useGetFetch('http://localhost:8000/courses')
+    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8000/customers')
 
     const [filteredDataCourse, setFilteredDataCourse] = useState('');
     const [selectedDate, setSelecetedDate] = useState('');
@@ -26,6 +26,7 @@ export default function SellCourse() {
     const url = 'https://example.com/api';
 
     // Define the data you want to send in the request body
+
 
     const sellSubscription = () => { 
         console.log("Selling");
