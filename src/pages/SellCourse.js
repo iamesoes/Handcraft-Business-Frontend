@@ -8,8 +8,8 @@ import { useState, useEffect } from "react";
 
 
 export default function SellCourse() {
-    const { errorCourse, isPendingCourse, data: courses } = useGetFetch('http://localhost:8000/courses')
-    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8000/customers')
+    const { errorCourse, isPendingCourse, data: courses } = useGetFetch('http://localhost:8080/course/allViews')
+    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8080/applicant/viewAll')
 
     const [filteredDataCourse, setFilteredDataCourse] = useState('');
     const [selectedDate, setSelecetedDate] = useState('');
@@ -23,26 +23,26 @@ export default function SellCourse() {
     const [selectedCourseID, setSelectedCourse] = useState('');
 
     // Define the URL you want to send the POST request to
-    const url = 'https://example.com/api';
+    const url = 'http://localhost:8080/course/addApplicant';
 
     // Define the data you want to send in the request body
 
 
     const sellSubscription = () => { 
-        console.log("Selling");
+        console.log("Selling, customer id: " + selectedCustomerID + ", course id: " + selectedCourseID);
         const data = {
-            customerID: selectedCustomerID,
-            courseID: selectedCourseID
+            applicantId: selectedCustomerID,
+            courseId: selectedCourseID
         };
     
         // Define the options for the fetch request, including method and headers
         const options = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data), // Convert the data to JSON format
-            mode: 'no-cors' // Set mode to 'no-cors'
+            //mode: 'no-cors' // Set mode to 'no-cors'
         };
     
         // Send the fetch request
@@ -50,6 +50,7 @@ export default function SellCourse() {
         .then(response => {
             // Check if the response is successful (status code in the range 200-299)
             if (response.ok) {
+                console.error("kurs eklendi");
             // If successful, parse the JSON response
             return response.json();
             } else {

@@ -14,6 +14,7 @@ const TrainerList = ({ trainers }) => {
           <div className='client_list_sub' >
 
             <p> <b> Working Days: </b></p>
+            {trainer.days && trainer.days.length > 0 && (
             <ul>
               {trainer.days.map(day => (
                 <li key={day}>
@@ -21,12 +22,14 @@ const TrainerList = ({ trainers }) => {
                 </li>
               ))}
             </ul>
+          )}
 
           </div>
 
           <div className='client_list_sub' >
 
             <p> <b> Handicraft Types: </b></p>
+            {trainer.handicraftTypes && trainer.handicraftTypes.length > 0 && (
             <ul>
               {trainer.handicraftTypes.map(type => (
                 <li key={type.id}>
@@ -34,6 +37,7 @@ const TrainerList = ({ trainers }) => {
                 </li>
               ))}
             </ul>
+          )}
 
           </div>
 

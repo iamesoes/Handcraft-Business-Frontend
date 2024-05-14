@@ -8,11 +8,12 @@ const CourseList = ({ courses, handleCourseClick }) => {
           <h2><p><b> İsim: </b> {course.name} </p></h2>
           <p><b> Kurs Ücreti: </b> {course.currentCourseFee}</p>
           <p><b> Kalan Kontenjan: </b> {course.maxAttendants - course.attendantCount}</p>
-          <p><b> Kurs Zamanı: </b> {course.days.join(', ')}</p>
+          <p><b> Kurs Zamanı: </b> {course.days && course.days.join(', ')}</p>
 
           <div className='client_list_sub'>
 
             <p><b> El İşleri: </b> </p>
+            {course.handicrafts && course.handicrafts.length > 0 && (
             <ul>
               {course.handicrafts.map(handcraft => (
                 <li key={handcraft.id}>
@@ -23,6 +24,7 @@ const CourseList = ({ courses, handleCourseClick }) => {
                 </li>
               ))}
             </ul>
+          )}
 
           </div>
         </div>

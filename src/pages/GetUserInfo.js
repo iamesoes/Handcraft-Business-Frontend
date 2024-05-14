@@ -6,8 +6,8 @@ import { useState, useEffect } from "react";
 
 
 export default function GetUserInfo() {
-    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8000/customers')
-    const { errorTrainer, isPendingTrainer, data: trainers } = useGetFetch('http://localhost:8000/trainers')
+    const { errorCustomer, isPendingCustomer, data: customers } = useGetFetch('http://localhost:8080/applicant/viewAll')
+    const { errorTrainer, isPendingTrainer, data: trainers } = useGetFetch('http://localhost:8080/instructor/viewAll')
 
     const [trainerName, setTrainerName] = useState('');
     const [customerName, setCustomerName] = useState('');

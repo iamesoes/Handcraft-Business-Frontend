@@ -17,12 +17,12 @@ const ClientList = ({ clients, handleClientClick }) => {
           <div className='client_list_sub'>
             <p><b>Courses Information:</b></p>
             <ul>
-              {item.courseViewList.map(course => (
+              {item.courseViewList && item.courseViewList.map(course => (
                 <li key={course.id}>
                   Course: {course.name}, Fee: ${course.currentCourseFee}
                   
 
-                  {course.handicrafts && (
+                  {course.handicrafts && course.handicrafts.length > 0 && (
                   <div>
                     <p><b>Handicrafts:</b></p>
                     <ul>
