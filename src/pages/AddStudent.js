@@ -3,21 +3,25 @@ import Navbar from "../components/Navbar";
 
 const AddStudent = () => {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
+  const [eMail, setEmail] = useState("");
+  const [surname,setSurname] = useState("");
+  const [userName, setUserName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const formData = {
       name,
-      phone,
+      surname,
+      phoneNumber,
       address,
-      email,
+      eMail,
+      userName
     };
     //URL AYARLA BACKENDE BU BİLGİLER gidecek
-    fetch("API_ENDPOINT", {
+    fetch("http://localhost:8080/applicant", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,17 +63,47 @@ const AddStudent = () => {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="phone"
+                htmlFor="surname"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Soyad
+              </label>
+              <input
+                type="text"
+                id="surname"
+                className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="userName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Kullanıcı Adı
+              </label>
+              <input
+                type="text"
+                id="userName"
+                className="mt-1 p-2 w-full border-gray-300 rounded-md"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="phoneNumber"
                 className="block text-sm font-medium text-gray-700"
               >
                 Cep Telefonu
               </label>
               <input
                 type="text"
-                id="phone"
+                id="phoneNumber"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
             <div className="mb-4">
@@ -89,16 +123,16 @@ const AddStudent = () => {
             </div>
             <div className="mb-4">
               <label
-                htmlFor="email"
+                htmlFor="eMail"
                 className="block text-sm font-medium text-gray-700"
               >
                 Email
               </label>
               <input
-                type="email"
-                id="email"
+                type="eMail"
+                id="eMail"
                 className="mt-1 p-2 w-full border-gray-300 rounded-md"
-                value={email}
+                value={eMail}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>

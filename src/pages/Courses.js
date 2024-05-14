@@ -1,73 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-//EKLENECEKLER:.::: id uid, fiyat float, KAPASİTE int, şuanki katılım int, string gün, instructer yok, sadece gün,type
-const dummyData = [
-  {
-    packageName: "El Sanatları Paketi",
-    courses: [
-      {
-        name: "Ahşap Boyama",
-        time: "Pazartesi 12.00",
-        instructor: "Meryem",
-      },
-      {
-        name: "Parmak Boyama",
-        time: "Çarşamba 13.00",
-        instructor: "Ali",
-      },
-    ],
-    price: "1500 TL",
-    capacity: "9/25",
-  },
-  {
-    packageName: "Resim Sanatı Paketi",
-    courses: [
-      {
-        name: "Karakalem Çizimi",
-        time: "Cumartesi 13.00",
-        instructor: "Ali",
-      },
-      {
-        name: "Yağlı Boya",
-        time: "Çarşamba 13.00",
-        instructor: "Yeşim",
-      },
-    ],
-    price: "2000 TL",
-    capacity: "12/30",
-  },
-];
 
 const Courses = () => {
+  const [data, setData] = useState([]);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/course/allViews")
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("Could not fetch the data for that resource");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setData(data);
+        setIsPending(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setIsPending(false);
+        setError(err.message);
+      });
+  }, []);
+
   return (
     <>
       <Navbar />
       <div className="w-full h-full py-8 px-[120px]">
-        {dummyData.map((packageData) => (
+        {error && <div>{error}</div>}
+        {isPending && <div>Loading...</div>}
+        {!isPending && !error && data.map((packageData) => (
           <div
-            key={packageData.packageName}
+            key={packageData.id}
             className="mb-8 bg-white rounded-lg p-4"
           >
             <div className="mb-4 text-xl font-semibold bg-slate-500 text-zinc-50 p-3 w-7/12 rounded-2xl ">
-              {packageData.packageName}
+              {packageData.name}
             </div>
             <div className="font-bold flex ">
-              <div className="w-1/5">Ders Adı </div>
-              <div className="w-1/5">Eğitmen </div>
-              <div className="w-1/5">Zaman </div>
+              <div className="w-1/5">Ders Adı</div>
+              <div className="w-1/5">Eğitmen</div>
+              <div className="w-1/5">Zaman</div>
             </div>
-            {packageData.courses.map((course) => (
-              <div key={course.name} className="mb-4 flex items-center ">
-                <div className="w-1/5">{course.name}</div>
-                <div className="w-1/5">{course.instructor}</div>
-
-                <div className="w-1/5">{course.time}</div>
+            {packageData.handicrafts.map((handicraft) => (
+              <div key={handicraft.name} className="mb-4 flex items-center">
+                <div className="w-1/5">{handicraft.name}</div>
+                <div className="w-1/5">
+                  {handicraft.instructorName} {handicraft.instructorSurname}
+                </div>
+                <div className="w-1/5">{handicraft.day}</div>
               </div>
             ))}
             <div className="font-semibold">
-              Kapasite: {packageData.capacity}
+              Kapasite: {packageData.maxAttendants}
             </div>
-            <div className="font-semibold">Fiyat: {packageData.price}</div>
+            <div className="font-semibold">
+              Mevcut Katılımcı Sayısı: {packageData.attendantCount}
+            </div>
+            <div className="font-semibold">Fiyat: {packageData.currentCourseFee}</div>
           </div>
         ))}
       </div>

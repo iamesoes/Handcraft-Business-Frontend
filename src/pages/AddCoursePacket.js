@@ -6,6 +6,10 @@ const AddCoursePacket = () => {
   const [capacity, setCapacity] = useState("");
   const [selectedCourses, setSelectedCourses] = useState([]);
 
+  fetch("http://localhost:8080/handicraftType/allView")
+      .then((res) => res.json())
+      .then((data) => setLessonTypes(data))
+      .catch((error) => console.error("Error fetching lesson types:", error));
   // Kurs türleri ve bu türlerin altındaki dersler BACKENDDEN GELECEK
   const courseTypes = [
     {

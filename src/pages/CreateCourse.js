@@ -1,14 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-
-// Var olan kurs türleri BACKEND GELECEK
-const lessonType = ["Dekoratif El Ürünleri Yapımı", "Tekstil Tasarımı"];
-
-//eğitmen listesi BACKEND GELECEK
-const instructors = ["Mehmet Keçeci", "Emir Çağrı", "Esma Ekmekci"];
-
-//eklenen dersin adı, türü, eğitmeni ve günü gönderilecek BACKEND
-//String name, String day, UUID handicraftTypeId,UUID instructorId
 
 const AddLesson = () => {
   const [courseType, setCourseType] = useState("");
@@ -16,10 +7,26 @@ const AddLesson = () => {
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedInstructor, setSelectedInstructor] = useState("");
   const [addedLessons, setAddedLessons] = useState([]);
+  const [lessonTypes, setLessonTypes] = useState([]);
+  const [instructors, setInstructors] = useState([]);
+
+  useEffect(() => {
+    // Fetch lesson types
+    fetch("http://localhost:8080/handicraftType/allView")
+      .then((res) => res.json())
+      .then((data) => setLessonTypes(data))
+      .catch((error) => console.error("Error fetching lesson types:", error));
+
+    // Fetch instructors
+    fetch("http://localhost:8080/instructor/viewAll")
+      .then((res) => res.json())
+      .then((data) => setInstructors(data))
+      .catch((error) => console.error("Error fetching instructors:", error));
+  }, []);
 
   const handleCourseTypeChange = (event) => {
     setCourseType(event.target.value);
-    setLessonName(""); // Ders ismi sıfırlanır
+    setLessonName(""); // Reset lesson name
   };
 
   const handleLessonNameChange = (event) => {
@@ -35,7 +42,7 @@ const AddLesson = () => {
   };
 
   const addLesson = () => {
-    // Ders bilgilerini ekle
+    // Add lesson information
     const lesson = {
       courseType,
       lessonName,
@@ -44,7 +51,7 @@ const AddLesson = () => {
     };
     setAddedLessons([...addedLessons, lesson]);
 
-    // Bilgileri sıfırla
+    // Reset fields
     setLessonName("");
     setSelectedDay("");
     setSelectedInstructor("");
@@ -54,9 +61,7 @@ const AddLesson = () => {
     <>
       <Navbar />
       <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold mb-4  text-center">
-          Ders Ekleme Sayfası
-        </h1>
+        <h1 className="text-3xl font-bold mb-4 text-center">Ders Ekleme Sayfası</h1>
         <div className="mb-4">
           <label className="block mb-2 font-semibold">Ders Türü:</label>
           <select
@@ -65,10 +70,9 @@ const AddLesson = () => {
             onChange={handleCourseTypeChange}
           >
             <option value="">Seçiniz</option>
-            {/* Var olan kurs türleri burada dinamik olarak listelenir */}
-            {lessonType.map((course, index) => (
-              <option key={index} value={course}>
-                {course}
+            {lessonTypes.map((course) => (
+              <option key={course.id} value={course.id}>
+                {course.name}
               </option>
             ))}
           </select>
@@ -94,13 +98,13 @@ const AddLesson = () => {
               onChange={handleDayChange}
             >
               <option value="">Seçiniz</option>
-              <option value="Pazartesi">Pazartesi</option>
-              <option value="Salı">Salı</option>
-              <option value="Çarşamba">Çarşamba</option>
-              <option value="Perşembe">Perşembe</option>
-              <option value="Cuma">Cuma</option>
-              <option value="Cumartesi">Cumartesi</option>
-              <option value="Pazar">Pazar</option>
+              <option value="MONDAY">Pazartesi</option>
+              <option value="TUESDAY">Salı</option>
+              <option value="WEDNESDAY">Çarşamba</option>
+              <option value="THURSDAY">Perşembe</option>
+              <option value="FRIDAY">Cuma</option>
+              <option value="SATURDAY">Cumartesi</option>
+              <option value="SUNDAY">Pazar</option>
             </select>
           </div>
         )}
@@ -112,9 +116,10 @@ const AddLesson = () => {
               value={selectedInstructor}
               onChange={handleInstructorChange}
             >
-              {instructors.map((instructor, index) => (
-                <option key={index} value={instructor}>
-                  {instructor}
+              <option value="">Seçiniz</option>
+              {instructors.map((instructor) => (
+                <option key={instructor.id} value={instructor.id}>
+                  {instructor.name} {instructor.surname}
                 </option>
               ))}
             </select>
@@ -130,7 +135,6 @@ const AddLesson = () => {
             </button>
           </div>
         )}
-        {/* Eklenen derslerin listesi */}
         <div>
           <h2 className="text-lg font-semibold mb-2">Eklenen Dersler</h2>
           <ul>
