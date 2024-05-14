@@ -50,11 +50,12 @@ export default function SellCourse() {
         .then(response => {
             // Check if the response is successful (status code in the range 200-299)
             if (response.ok) {
-                console.error("kurs eklendi");
+                alert("kurs eklendi");
             // If successful, parse the JSON response
             return response.json();
             } else {
             // If not successful, throw an error with the status text
+            alert("kurs eklenemedi");
             throw new Error('Something went wrong: ' + response.statusText);
             }
         })
