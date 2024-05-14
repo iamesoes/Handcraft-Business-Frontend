@@ -30,7 +30,7 @@ export default function GetUserInfo() {
 
 
         if(customerName !== ""){
-            filteredData = customerName ? customers.filter(item => item.name.toLowerCase().includes(customerName.toLowerCase()) ): customers;
+            filteredData = customerName ? customers.filter(item => (item.userView.name + " " +item.userView.surname).toLowerCase().includes(customerName.toLowerCase()) ): customers;
         }
         else{
             filteredData = customers;
@@ -44,7 +44,7 @@ export default function GetUserInfo() {
         let filteredData; 
 
         if(trainerName !== ""){
-            filteredData = trainerName ? trainers.filter(item => item.name.toLowerCase().includes(trainerName.toLowerCase()) ): trainers;
+            filteredData = trainerName ? trainers.filter(item => (item.name + " " + item.surname).toLowerCase().includes(trainerName.toLowerCase()) ): trainers;
         }
         else{
             filteredData = trainers;

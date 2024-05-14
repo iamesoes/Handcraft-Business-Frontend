@@ -1,111 +1,133 @@
 {
     "customers": [
+    
         {
-            "id":1,
-            "name": "John",
-            "surname":"Doe",
-            "userName": "deneme",
-            "phoneNumber": "+1234567890",
-            "address": "123 Main St, Cityville",
-            "eMail": "john@example.com",
-            "course_info": [
+            "userView": {
+            "id": "2361c82d-c8c1-463e-a13f-367f015ed286",
+            "userName": "mehmetKececi",
+            "name": "Kececi",
+            "surname": "Mehmet",
+            "eMail": "Kececi",
+            "phoneNumber": "5538518386",
+            "address": "FSM"
+            },
+            "courseViewList": [
+            {
+                "id": "df33b4e4-3357-4aa4-98b1-d4e0ab4221ad",
+                "name": "test1",
+                "currentCourseFee": 175.0,
+                "maxAttendants": 50,
+                "attendantCount": 1,
+                "handicrafts": [
                 {
-                "course_name": "Introduction to Programming",
-                "date": "2024-06-15",
-                "payment_amount": 100
+                    "id": "b28fb780-de40-4fbb-9cd8-e35f17d29f44",
+                    "fee": 175.0,
+                    "handicraftTypeName": "testType2",
+                    "instructorName": "white",
+                    "instructorSurname": "walter",
+                    "day": "MONDAY"
                 },
                 {
-                "course_name": "Web Development Basics",
-                "date": "2024-07-10",
-                "payment_amount": 150
+                    "id": "b28fb780-de40-4fbb-9cd8-e35f17d29f41",
+                    "fee": 175.0,
+                    "handicraftTypeName": "testType2",
+                    "instructorName": "white",
+                    "instructorSurname": "walter",
+                    "day": "MONDAY"
                 }
-            ],
-            "taken_courses": ["Introduction to Programming", "Web Development Basics"]
+                ],
+                "days": [
+                "MONDAY"
+                ]
+            }
+            ]
         },
         {
-            "id":2,
-            "name": "Jane",
-            "surname":"Smith",
-            "userName": "deneme2",
-            "phoneNumber": "+1987654321",
-            "address": "456 Elm St, Townsville",
-            "eMail": "jane@example.com",
-            "course_info": [
-                {
-                "course_name": "Data Science Fundamentals",
-                "date": "2024-06-20",
-                "payment_amount": 200
-                }
-            ],
-            "taken_courses": ["Data Science Fundamentals"]
+            "userView": {
+            "id": "7429eae7-58c5-4d82-8e5f-3e31ff9b3cf4",
+            "userName": "johndoe",
+            "name": "John",
+            "surname": "Doe",
+            "eMail": "johndoe@example.com",
+            "phoneNumber": "1234567890",
+            "address": "123 Main St"
+            },
+            "courseViewList": [
+            {
+                "id": "98f49d6e-593f-4c1e-8821-d16c997b0f02",
+                "name": "test2",
+                "currentCourseFee": 200.0,
+                "maxAttendants": 30,
+                "attendantCount": 2,
+                "handicrafts": [],
+                "days": [
+                "TUESDAY"
+                ]
+            }
+            ]
         }
+        
     ],
 
     "trainers": [
+        
         {
-            "id":1,
-            "name": "Alice Trainer",
-            "phone_number": "+1234567890",
-            "house_number": "789",
-            "address": "789 Oak St, Villagetown",
-            "email": "alice@example.com",
-            "working_hours": [
-                {
-                    "day": "Monday",
-                    "start_time": "09:00",
-                    "end_time": "17:00"
-                },
-                {
-                    "day": "Tuesday",
-                    "start_time": "10:00",
-                    "end_time": "18:00"
-                },
-                {
-                    "day": "Wednesday",
-                    "start_time": "09:30",
-                    "end_time": "16:30"
-                }
+            "id": "4579c261-3e6e-436b-bbb5-e1a5690e63c2",
+            "userName": "WalterWhite",
+            "name": "white",
+            "surname": "walter",
+            "eMail": "white",
+            "phoneNumber": "5531121111",
+            "address": "Albequerque- U.S.A.",
+            "weekdayFee": 175.0,
+            "weekendFee": 250.0,
+            "days": [
+                "MONDAY",
+                "TUESDAY",
+                "WEDNESDAY"
             ],
-            "course_info": [
+            "handicraftTypes": [
                 {
-                    "course_name": "Yoga Basics",
-                    "details": "Learn foundational yoga poses and breathing techniques.",
-                    "payment_amount": 50
+                    "id": "7a82c043-071d-417c-9bbf-669696076822",
+                    "name": "testType",
+                    "explanation": "testType"
                 },
                 {
-                    "course_name": "Pilates for Beginners",
-                    "details": "Introduction to core strengthening and flexibility exercises.",
-                    "payment_amount": 60
+                    "id": "d9c0f914-96f6-4735-bf8f-c4f2ca2599d8",
+                    "name": "testType2",
+                    "explanation": "testType2"
                 }
             ]
         },
         {
-            "id":2,
-            "name": "Bob Trainer",
-            "phone_number": "+1987654321",
-            "house_number": "101",
-            "address": "101 Maple St, Forestville",
-            "email": "bob@example.com",
-            "working_hours": [
+            "id": "4579c261",
+            "userName": "JessePinkman",
+            "name": "pinkman",
+            "surname": "jesse",
+            "eMail": "pinkman",
+            "phoneNumber": "5531122222",
+            "address": "Albequerque- U.S.A.",
+            "weekdayFee": 200.0,
+            "weekendFee": 275.0,
+            "days": [
+                "THURSDAY",
+                "FRIDAY",
+                "SATURDAY"
+            ],
+            "handicraftTypes": [
                 {
-                "day": "Thursday",
-                "start_time": "08:00",
-                "end_time": "16:00"
+                    "id": "4579c261342",
+                    "name": "type1",
+                    "explanation": "type1"
                 },
                 {
-                "day": "Friday",
-                "start_time": "09:30",
-                "end_time": "17:30"
-                }
-            ],
-            "course_info": [
-                {
-                "course_name": "High Intensity Interval Training (HIIT)",
-                "details": "Intense cardio and strength workout with short rest intervals.",
-                "payment_amount": 70
+                    "id": "4579c261432",
+                    "name": "type2",
+                    "explanation": "type2"
                 }
             ]
         }
+        
     ],
 
     "courses": [
@@ -163,3 +185,4 @@
 
     
   
+

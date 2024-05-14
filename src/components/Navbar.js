@@ -31,11 +31,11 @@ const Navbar = () => {
               <Link to="/operations" className="text-white hover:text-gray-300">
                 İşlemler
               </Link>
+            </li>
             <li>
               <Link to="/getUserInfo" className="text-white hover:text-gray-300">
                 Kullanıcı Bilgileri
               </Link>
-            </li>
             </li>
             <li>
               <Link to="/sellCourse" className="text-white hover:text-gray-300">

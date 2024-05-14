@@ -81,6 +81,17 @@
     
 }
 
+.client_preview .sublist{
+    width: 80%;
+    margin: auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    
+}
+
 .client_preview p{
     margin-bottom: 10px;
 }
@@ -123,7 +134,7 @@
 }
 
 .subTitles form{
-    width: 40vw;
+    width: 43vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -226,8 +237,9 @@
     border-radius: 10px;
     text-align: center;
 
-    margin-bottom: 30px;
-    width: 47%;
+    margin-bottom: 20px;
+    width: 49%;
+    height: 55px;
     font-size: 1em;
 
     scrollbar-width: none; /* Firefox */

@@ -21,6 +21,52 @@ export default function SellCourse() {
 
     const [selectedCustomerID, setSelectedCustomer] = useState('');
     const [selectedCourseID, setSelectedCourse] = useState('');
+
+    // Define the URL you want to send the POST request to
+    const url = 'https://example.com/api';
+
+    // Define the data you want to send in the request body
+
+
+    const sellSubscription = () => { 
+        console.log("Selling");
+        const data = {
+            customerID: selectedCustomerID,
+            courseID: selectedCourseID
+        };
+    
+        // Define the options for the fetch request, including method and headers
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data), // Convert the data to JSON format
+            mode: 'no-cors' // Set mode to 'no-cors'
+        };
+    
+        // Send the fetch request
+        fetch(url, options)
+        .then(response => {
+            // Check if the response is successful (status code in the range 200-299)
+            if (response.ok) {
+            // If successful, parse the JSON response
+            return response.json();
+            } else {
+            // If not successful, throw an error with the status text
+            throw new Error('Something went wrong: ' + response.statusText);
+            }
+        })
+        .then(data => {
+            // Handle the data received from the server
+            console.log('Response from server:', data);
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the fetch request
+            console.error('Error:', error);
+        });
+    }
+
   
     const handleClientClick = (id) => {
         let isChosen = false;
@@ -78,11 +124,6 @@ export default function SellCourse() {
     };
 
 
-    
-
-    
-
-
 
     const handleHandcraftChange = (e) => {
         const options = e.target.options;
@@ -101,7 +142,7 @@ export default function SellCourse() {
 
 
         if(customerName !== ""){
-            filteredData = customerName ? customers.filter(item => item.name.toLowerCase().includes(customerName.toLowerCase()) ): customers;
+            filteredData = customerName ? customers.filter(item => (item.userView.name + " " +item.userView.surname).toLowerCase().includes(customerName.toLowerCase()) ): customers;
         }
         else{
             filteredData = customers;
@@ -116,32 +157,63 @@ export default function SellCourse() {
         setFilteredDataCourse(courses);
         setFilteredDataCustomer(customers);
 
+        setSelectedHandcrafts("");
+        setSelecetedDate("none");
+        setFee("");
+
     }, [courses,customers]);
     
 
     const handleFilter = (e) => {
         e.preventDefault();
-        console.log(selectedHandcrafts);
+
         let filteredData = [...courses]; // Copy original data to prevent mutating it
         
         // Filter by fee
         if (fee !== "") {
             console.log("in fee");
-            filteredData = filteredData.filter(item => parseInt(item.fee) <= parseInt(fee));
+            filteredData = filteredData.filter(item => parseInt(item.currentCourseFee) <= parseInt(fee));
         }
         
-        // Filter by selected handcrafts
-        if (selectedHandcrafts.length > 0) {
-            if(!selectedHandcrafts.includes("none")){
-                filteredData = filteredData.filter(item => selectedHandcrafts.every(handcraft => item.handcrafts.includes(handcraft)));
-            }
+        // Filter by selected handcrafts V1
+        // if (selectedHandcrafts.length > 0) {
+        //     if(!selectedHandcrafts.includes("none")){
+        //         filteredData = filteredData.filter(item => selectedHandcrafts.every(handcraft => item.handicrafts.includes(handcraft)));
+        //     }
+        // }
+
+        if (selectedHandcrafts !== "") {
+
+            filteredData = filteredData.filter(item => {
+                // Check if any handcraft name contains the selectedHandcraft (case-insensitive)
+                return item.handicrafts.length > 0 && item.handicrafts.some(handcraft => {
+                    
+
+                    // Check if the handcraft name exists and contains the selectedHandcraft (case-insensitive)
+                    return handcraft.handicraftTypeName && handcraft.handicraftTypeName.toLowerCase().includes(selectedHandcrafts.toLowerCase());
+                });
+            });
         }
 
         // Filter by selected dates
-        if (selectedDate.length > 0) {
-            if(selectedDate === "week" || selectedDate === "weekend" ){
-                filteredData = filteredData.filter(item => selectedDate === item.time);
-            }
+        // if (selectedDate.length > 0 ) {
+        //     if(selectedDate === "week" || selectedDate === "weekend" ){
+        //         filteredData = filteredData.filter(item => selectedDate === item.time);
+        //     }
+        // }
+
+        if (selectedDate.length > 0 && selectedDate !== "none") {
+            
+            filteredData = filteredData.filter(item => {
+
+                // Check if any handcraft name contains the selectedHandcraft (case-insensitive)
+                return item.days.length > 0 && item.days.some(day => {
+                    
+
+                    // Check if the handcraft name exists and contains the selectedHandcraft (case-insensitive)
+                    return day && day.toLowerCase().includes(selectedDate.toLowerCase());
+                });
+            });
         }
 
         setFilteredDataCourse(filteredData);
@@ -172,17 +244,28 @@ export default function SellCourse() {
 
                             <select value={selectedDate} onChange={(e) => setSelecetedDate(e.target.value)} >
                                 <option value="none">Zaman Seçiniz</option>
-                                <option value="week">Hafta İçi</option>
-                                <option value="weekend">Hafta Sonu</option>
-                                <option value="both">İkisi de</option>
+                                <option value="MONDAY">Pazartesi</option>
+                                <option value="TUESDAY">Salı</option>
+                                <option value="WEDNESDAY">Çarşamba</option>
+                                <option value="THURSDAY">Perşembe</option>
+                                <option value="FRIDAY">Cuma</option>
+                                <option value="SATURDAY">Cumartesi</option>
+                                <option value="SUNDAY">Pazar</option>
                             </select>
 
                         </div>
 
                         <div className="sub_form2">
 
+                            <input 
+                                type="text"  
+                                value={selectedHandcrafts}
+                                placeholder="El İşi Seçiniz"
+                                onChange={(e) => setSelectedHandcrafts(e.target.value)}
+                            />
 
-                            <select className="select_2" multiple value={selectedHandcrafts} onChange={handleHandcraftChange}>
+
+                            {/* <select className="select_2" multiple value={selectedHandcrafts} onChange={handleHandcraftChange}>
                                 <option value="none">El İşi Seçiniz</option>
                                 <option disabled value=""></option>
                                 <option value="Ahşap Boyama">Ahşap Boyama</option>
@@ -190,7 +273,7 @@ export default function SellCourse() {
                                 <option value="Vitray">Vitray</option>
                                 <option value="Tahta Oymacılık">Tahta Oymacılık</option>
                                 <option value="Rölyef">Rölyef</option>
-                            </select>
+                            </select> */}
 
                             
 
@@ -236,8 +319,8 @@ export default function SellCourse() {
             </div>
 
             <div className="button_container">
-            <button className="buy_button"> Nakit Satın Al </button>
-            <button className="buy_button "> Kartla Satın Al </button>
+            <button className="buy_button" onClick={sellSubscription}> Nakit Satın Al </button>
+            <button className="buy_button " onClick={sellSubscription}> Kartla Satın Al </button>
             </div>
 
 
