@@ -9,6 +9,9 @@ const AddLesson = () => {
   const [addedLessons, setAddedLessons] = useState([]);
   const [lessonTypes, setLessonTypes] = useState([]);
   const [instructors, setInstructors] = useState([]);
+  const [notification, setNotification] = useState({ message: "", type: "" });
+
+  let instruc;
 
   useEffect(() => {
     // Fetch lesson types
@@ -20,9 +23,15 @@ const AddLesson = () => {
     // Fetch instructors
     fetch("http://localhost:8080/instructor/viewAll")
       .then((res) => res.json())
-      .then((data) => setInstructors(data))
+      .then((data) => (instruc = data))
       .catch((error) => console.error("Error fetching instructors:", error));
   }, []);
+
+  useEffect(() => {
+    setInstructors(
+      instructors.filter((instructor) => instructor.x === courseType)
+    );
+  }, [instruc, courseType]);
 
   const handleCourseTypeChange = (event) => {
     setCourseType(event.target.value);
@@ -49,19 +58,54 @@ const AddLesson = () => {
       day: selectedDay,
       instructor: selectedInstructor,
     };
-    setAddedLessons([...addedLessons, lesson]);
 
-    // Reset fields
-    setLessonName("");
-    setSelectedDay("");
-    setSelectedInstructor("");
+    fetch("http://localhost:8080/lesson", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(lesson),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setAddedLessons([...addedLessons, lesson]);
+          setNotification({
+            message: "Ders başarıyla eklendi!",
+            type: "success",
+          });
+          // Reset fields
+          setLessonName("");
+          setSelectedDay("");
+          setSelectedInstructor("");
+        } else {
+          throw new Error("Failed to add lesson");
+        }
+      })
+      .catch((error) => {
+        setNotification({
+          message: "Ders eklenirken bir hata oluştu.",
+          type: "error",
+        });
+        console.error("Error:", error);
+      });
   };
 
   return (
     <>
       <Navbar />
       <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold mb-4 text-center">Ders Ekleme Sayfası</h1>
+        <h1 className="text-3xl font-bold mb-4 text-center">
+          Ders Ekleme Sayfası
+        </h1>
+        {notification.message && (
+          <div
+            className={`mb-4 p-4 text-white ${
+              notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            } rounded-md`}
+          >
+            {notification.message}
+          </div>
+        )}
         <div className="mb-4">
           <label className="block mb-2 font-semibold">Ders Türü:</label>
           <select
