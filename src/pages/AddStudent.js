@@ -6,8 +6,9 @@ const AddStudent = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [eMail, setEmail] = useState("");
-  const [surname,setSurname] = useState("");
+  const [surname, setSurname] = useState("");
   const [userName, setUserName] = useState("");
+  const [notification, setNotification] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,9 +19,9 @@ const AddStudent = () => {
       phoneNumber,
       address,
       eMail,
-      userName
+      userName,
     };
-    //URL AYARLA BACKENDE BU BİLGİLER gidecek
+    // URL Ayarla: Backend'e bu bilgiler gönderilecek
     fetch("http://localhost:8080/applicant", {
       method: "POST",
       headers: {
@@ -31,9 +32,18 @@ const AddStudent = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
+        setNotification("Student added successfully.");
+        // Clear form inputs
+        setName("");
+        setSurname("");
+        setPhoneNumber("");
+        setAddress("");
+        setEmail("");
+        setUserName("");
       })
       .catch((error) => {
         console.error("Error:", error);
+        setNotification("Failed to add student.");
       });
   };
 
@@ -45,6 +55,11 @@ const AddStudent = () => {
           <h1 className="text-3xl font-semibold mb-4 text-center">
             Kursiyer Ekle
           </h1>
+          {notification && (
+            <div className="bg-green-200 text-green-800 p-2 mb-4 rounded">
+              {notification}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label

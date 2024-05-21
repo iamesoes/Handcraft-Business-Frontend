@@ -1,10 +1,10 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 
 const AddTeacher = () => {
   const [name, setName] = useState("");
-  const [surname,setSurname] = useState("");
-  const [userName,setUserName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const [eMail, setEmail] = useState("");
@@ -12,6 +12,7 @@ const AddTeacher = () => {
   const [weekdayFee, setWeekdayFee] = useState("");
   const [weekendFee, setWeekendFee] = useState("");
   const [handicraftTypes, setHandicraftTypes] = useState([]);
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
   // Fetch handicraftTypes from the backend
   useEffect(() => {
@@ -53,9 +54,17 @@ const AddTeacher = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        setNotification({
+          message: "Eğitmen başarıyla eklendi!",
+          type: "success",
+        });
         console.log("Success:", data);
       })
       .catch((error) => {
+        setNotification({
+          message: "Eğitmen eklenirken bir hata oluştu.",
+          type: "error",
+        });
         console.error("Error:", error);
       });
   };
@@ -68,6 +77,15 @@ const AddTeacher = () => {
           <h1 className="text-3xl font-semibold mb-4 text-center">
             Eğitmen Ekle
           </h1>
+          {notification.message && (
+            <div
+              className={`mb-4 p-4 text-white ${
+                notification.type === "success" ? "bg-green-500" : "bg-red-500"
+              } rounded-md`}
+            >
+              {notification.message}
+            </div>
+          )}
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
