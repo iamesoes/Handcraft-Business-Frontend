@@ -1,35 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 
 const AddCoursePacket = () => {
   const [packetName, setPacketName] = useState("");
   const [capacity, setCapacity] = useState("");
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const [lessonTypes, setLessonTypes] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [selectedType, setSelectedType] = useState("");
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [notification, setNotification] = useState({ message: "", type: "" });
 
-  fetch("http://localhost:8080/handicraftType/allView")
+  useEffect(() => {
+    // Fetch lesson types
+    fetch("http://localhost:8080/handicraftType/allView")
       .then((res) => res.json())
       .then((data) => setLessonTypes(data))
       .catch((error) => console.error("Error fetching lesson types:", error));
-  // Kurs türleri ve bu türlerin altındaki dersler BACKENDDEN GELECEK
-  const courseTypes = [
-    {
-      type: "Tekstil Tasarımı",
-      courses: ["Keçe Aksesuarları Yapımı", "Kırkyama Çanta ve Cüzdan Dikimi"],
-    },
-    {
-      type: "Örgü ve İşleme Sanatları",
-      courses: [
-        "Amigurumi Oyuncak Yapımı",
-        "Beş Şiş Aksesuar Yapımı",
-        "Elde Antep İşi",
-      ],
-    },
-  ];
-  //ders ekleme yaparken kolaylık olması için ders seçiminde dersin zamanını da göster yanında
-  ///OLUŞTURULAN PAKETİN ADI, KAPASİTESİ VE EKLENEN DERSLERİ BACKENDE DÖN
 
-  const [selectedType, setSelectedType] = useState("");
-  const [selectedCourse, setSelectedCourse] = useState("");
+    // Fetch all courses
+    fetch("http://localhost:8080/courses/all")
+      .then((res) => res.json())
+      .then((data) => setAllCourses(data))
+      .catch((error) => console.error("Error fetching courses:", error));
+  }, []);
+
+  useEffect(() => {
+    if (selectedType) {
+      const filtered = allCourses.filter(
+        (course) => course.handicraftTypeName === selectedType
+      );
+      setFilteredCourses(filtered);
+    } else {
+      setFilteredCourses([]);
+    }
+  }, [selectedType, allCourses]);
 
   const handlePacketNameChange = (e) => {
     setPacketName(e.target.value);
@@ -44,17 +50,52 @@ const AddCoursePacket = () => {
   };
 
   const handleCourseSelection = (course) => {
+    const selected = filteredCourses.find((c) => c.id === course);
     setSelectedCourse(course);
-    setSelectedCourses([...selectedCourses, { type: selectedType, course }]);
+    setSelectedCourses([
+      ...selectedCourses,
+      {
+        type: selected.handicraftTypeName,
+        course: selected,
+      },
+    ]);
+    setSelectedCourse("");
     setSelectedType("");
   };
 
   const handleSubmit = () => {
     // Kurs paketi oluşturma işlemleri
-    console.log("Kurs paketi oluşturuldu!");
-    console.log("Paket Adı:", packetName);
-    console.log("Kapsite:", capacity);
-    console.log("Seçilen Kurslar:", selectedCourses);
+    const packetData = {
+      name: packetName,
+      capacity: parseInt(capacity, 10),
+      courses: selectedCourses.map((c) => c.course.id),
+    };
+
+    fetch("http://localhost:8080/coursePacket", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(packetData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          setNotification({
+            message: "Kurs paketi başarıyla oluşturuldu!",
+            type: "success",
+          });
+          console.log("Kurs paketi oluşturuldu!");
+        } else {
+          throw new Error("Kurs paketi oluşturulamadı.");
+        }
+      })
+      .catch((error) => {
+        setNotification({
+          message: "Kurs paketi oluşturulurken bir hata oluştu.",
+          type: "error",
+        });
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -62,6 +103,15 @@ const AddCoursePacket = () => {
       <Navbar />
       <div className="container mx-auto mt-8">
         <h1 className="text-2xl font-semibold mb-4">Kurs Paketi Oluştur</h1>
+        {notification.message && (
+          <div
+            className={`mb-4 p-4 text-white ${
+              notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            } rounded-md`}
+          >
+            {notification.message}
+          </div>
+        )}
         <div className="mb-4">
           <label
             htmlFor="packetName"
@@ -83,7 +133,7 @@ const AddCoursePacket = () => {
             htmlFor="capacity"
             className="block text-sm font-medium text-gray-700"
           >
-            Kapsite
+            Kapasite
           </label>
           <input
             type="number"
@@ -96,12 +146,14 @@ const AddCoursePacket = () => {
         </div>
         <div className="mb-4">
           <p className="text-sm font-medium text-gray-700 mb-2">
-            Seçilen Kurslar:
+            Seçilen Dersler:
           </p>
           <ul>
             {selectedCourses.map((course, index) => (
               <li key={index}>
-                {course.course} ({course.type})
+                {course.course.handicraftTypeName} -{" "}
+                {course.course.instructorName} {course.course.instructorSurname}{" "}
+                - {course.course.day}
               </li>
             ))}
           </ul>
@@ -111,7 +163,7 @@ const AddCoursePacket = () => {
             htmlFor="courseType"
             className="block text-sm font-medium text-gray-700"
           >
-            Kurs Türü
+            Ders Türü
           </label>
           <select
             id="courseType"
@@ -120,10 +172,10 @@ const AddCoursePacket = () => {
             value={selectedType}
             onChange={(e) => handleTypeSelection(e.target.value)}
           >
-            <option value="">Kurs Türü Seçin</option>
-            {courseTypes.map((type, index) => (
-              <option key={index} value={type.type}>
-                {type.type}
+            <option value="">Ders Türü Seçin</option>
+            {lessonTypes.map((type) => (
+              <option key={type.id} value={type.name}>
+                {type.name}
               </option>
             ))}
           </select>
@@ -134,7 +186,7 @@ const AddCoursePacket = () => {
               htmlFor="course"
               className="block text-sm font-medium text-gray-700"
             >
-              Kurs Seçin
+              Ders Seçin
             </label>
             <select
               id="course"
@@ -143,20 +195,19 @@ const AddCoursePacket = () => {
               value={selectedCourse}
               onChange={(e) => setSelectedCourse(e.target.value)}
             >
-              <option value="">Kurs Seçin</option>
-              {courseTypes
-                .find((type) => type.type === selectedType)
-                .courses.map((course, index) => (
-                  <option key={index} value={course}>
-                    {course}
-                  </option>
-                ))}
+              <option value="">Dersi Seçin</option>
+              {filteredCourses.map((course) => (
+                <option key={course.id} value={course.id}>
+                  {course.handicraftTypeName} - {course.instructorName}{" "}
+                  {course.instructorSurname} - {course.day}
+                </option>
+              ))}
             </select>
             <button
               className="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => handleCourseSelection(selectedCourse)}
             >
-              Kursu Ekle
+              Dersi Ekle
             </button>
           </div>
         )}
