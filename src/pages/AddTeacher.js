@@ -11,7 +11,7 @@ const AddTeacher = () => {
   const [lesson, setLesson] = useState("");
   const [weekdayFee, setWeekdayFee] = useState("");
   const [weekendFee, setWeekendFee] = useState("");
-  const [handicraftTypes, setHandicraftTypes] = useState([]);
+  const [handicraftTypeIds, setHandicraftTypes] = useState([]);
   const [notification, setNotification] = useState({ message: "", type: "" });
 
   // Fetch handicraftTypes from the backend
@@ -183,7 +183,7 @@ const AddTeacher = () => {
                 onChange={(e) => setLesson(e.target.value)}
               >
                 <option value="">Ders Seçin</option>
-                {handicraftTypes.map((type) => (
+                {handicraftTypeIds.map((type) => (
                   <option key={type.id} value={type.id}>
                     {type.name}
                   </option>
