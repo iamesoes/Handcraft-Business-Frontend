@@ -21,7 +21,6 @@ const AddStudent = () => {
       eMail,
       userName,
     };
-    // URL Ayarla: Backend'e bu bilgiler gönderilecek
     fetch("http://localhost:8080/applicant", {
       method: "POST",
       headers: {
@@ -32,8 +31,7 @@ const AddStudent = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Success:", data);
-        setNotification("Student added successfully.");
-        // Clear form inputs
+        setNotification("Öğrenci başarıyla eklendi.");
         setName("");
         setSurname("");
         setPhoneNumber("");
@@ -43,7 +41,7 @@ const AddStudent = () => {
       })
       .catch((error) => {
         console.error("Error:", error);
-        setNotification("Failed to add student.");
+        setNotification("Öğrenciyi eklerken hata oluştu.");
       });
   };
 
@@ -55,11 +53,7 @@ const AddStudent = () => {
           <h1 className="text-3xl font-semibold mb-4 text-center">
             Kursiyer Ekle
           </h1>
-          {notification && (
-            <div className="bg-green-200 text-green-800 p-2 mb-4 rounded">
-              {notification}
-            </div>
-          )}
+
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
@@ -158,6 +152,15 @@ const AddStudent = () => {
               Ekle
             </button>
           </form>
+          {notification && (
+            <div
+              className={`mb-4 p-4 text-white ${
+                notification.type === "success" ? "bg-green-500" : "bg-red-500"
+              } rounded-md`}
+            >
+              {notification}
+            </div>
+          )}
         </div>
       </div>
     </>
