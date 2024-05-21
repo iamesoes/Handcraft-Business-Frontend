@@ -77,15 +77,7 @@ const AddTeacher = () => {
           <h1 className="text-3xl font-semibold mb-4 text-center">
             Eğitmen Ekle
           </h1>
-          {notification.message && (
-            <div
-              className={`mb-4 p-4 text-white ${
-                notification.type === "success" ? "bg-green-500" : "bg-red-500"
-              } rounded-md`}
-            >
-              {notification.message}
-            </div>
-          )}
+
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
@@ -235,6 +227,15 @@ const AddTeacher = () => {
               Ekle
             </button>
           </form>
+          {notification.message && (
+            <div
+              className={`mb-4 p-4 text-white ${
+                notification.type === "success" ? "bg-green-500" : "bg-red-500"
+              } rounded-md`}
+            >
+              {notification.message}
+            </div>
+          )}
         </div>
       </div>
     </>
