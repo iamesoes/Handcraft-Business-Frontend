@@ -184,7 +184,7 @@ const AddTeacher = () => {
               >
                 <option value="">Ders Seçin</option>
                 {handicraftTypes.map((type) => (
-                  <option key={type.id} value={type.name}>
+                  <option key={type.id} value={type.id}>
                     {type.name}
                   </option>
                 ))}
