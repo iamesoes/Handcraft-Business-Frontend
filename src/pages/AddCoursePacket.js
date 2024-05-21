@@ -20,7 +20,7 @@ const AddCoursePacket = () => {
       .catch((error) => console.error("Error fetching lesson types:", error));
 
     // Fetch all courses
-    fetch("http://localhost:8080/courses/all")
+    fetch("http://localhost:8080/handicraft/viewAll")
       .then((res) => res.json())
       .then((data) => setAllCourses(data))
       .catch((error) => console.error("Error fetching courses:", error));
@@ -68,10 +68,10 @@ const AddCoursePacket = () => {
     const packetData = {
       name: packetName,
       capacity: parseInt(capacity, 10),
-      courses: selectedCourses.map((c) => c.course.id),
+      handicraftIdList: selectedCourses.map((c) => c.course.id),
     };
 
-    fetch("http://localhost:8080/coursePacket", {
+    fetch("http://localhost:8080/course", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
