@@ -32,6 +32,8 @@ const AddTeacher = () => {
   }, []);
 
   const handleSubmit = (e) => {
+    console.log("lesson: "+ lesson);
+    let lesson_list = [lesson];
     e.preventDefault();
     const formData = {
       name,
@@ -40,7 +42,7 @@ const AddTeacher = () => {
       phoneNumber,
       address,
       eMail,
-      lesson,
+      handicraftTypeIds:lesson_list,
       weekdayFee,
       weekendFee,
     };

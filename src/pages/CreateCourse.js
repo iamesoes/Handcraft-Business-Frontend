@@ -27,12 +27,13 @@ const AddLesson = () => {
   }, []);
 
   useEffect(() => {
+    console.log(courseType);
     if (courseType) {
       const filtered = instructors.filter(
         (instructor) =>
           instructor.handicraftTypes &&
           instructor.handicraftTypes.length > 0 &&
-          instructor.handicraftTypes[0] === courseType
+          instructor.handicraftTypes[0].id === courseType
       );
       setFilteredInstructors(filtered);
     } else {
@@ -60,13 +61,13 @@ const AddLesson = () => {
   const addLesson = () => {
     // Add lesson information
     const lesson = {
-      courseType,
-      lessonName,
+      handicraftTypeId: courseType,
+      name: lessonName,
       day: selectedDay,
-      instructor: selectedInstructor,
+      instructorId: selectedInstructor,
     };
 
-    fetch("http://localhost:8080/lesson", {
+    fetch("http://localhost:8080/handicraft", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -191,8 +192,8 @@ const AddLesson = () => {
           <ul>
             {addedLessons.map((lesson, index) => (
               <li key={index}>
-                <strong className="text-2xl px-5">{lesson.lessonName}</strong> (
-                {lesson.courseType}) - {lesson.day} - {lesson.instructor}
+                <strong className="text-2xl px-5">{lesson.name}</strong> -
+                { lesson.day}
               </li>
             ))}
           </ul>
@@ -200,6 +201,7 @@ const AddLesson = () => {
       </div>
     </>
   );
+
 };
 
 export default AddLesson;
