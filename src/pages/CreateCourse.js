@@ -9,9 +9,8 @@ const AddLesson = () => {
   const [addedLessons, setAddedLessons] = useState([]);
   const [lessonTypes, setLessonTypes] = useState([]);
   const [instructors, setInstructors] = useState([]);
+  const [filteredInstructors, setFilteredInstructors] = useState([]);
   const [notification, setNotification] = useState({ message: "", type: "" });
-
-  let instruc;
 
   useEffect(() => {
     // Fetch lesson types
@@ -23,15 +22,23 @@ const AddLesson = () => {
     // Fetch instructors
     fetch("http://localhost:8080/instructor/viewAll")
       .then((res) => res.json())
-      .then((data) => (instruc = data))
+      .then((data) => setInstructors(data))
       .catch((error) => console.error("Error fetching instructors:", error));
   }, []);
 
   useEffect(() => {
-    setInstructors(
-      instructors.filter((instructor) => instructor.x === courseType)
-    );
-  }, [instruc, courseType]);
+    if (courseType) {
+      const filtered = instructors.filter(
+        (instructor) =>
+          instructor.handicraftTypes &&
+          instructor.handicraftTypes.length > 0 &&
+          instructor.handicraftTypes[0] === courseType
+      );
+      setFilteredInstructors(filtered);
+    } else {
+      setFilteredInstructors([]);
+    }
+  }, [courseType, instructors]);
 
   const handleCourseTypeChange = (event) => {
     setCourseType(event.target.value);
@@ -161,7 +168,7 @@ const AddLesson = () => {
               onChange={handleInstructorChange}
             >
               <option value="">Seçiniz</option>
-              {instructors.map((instructor) => (
+              {filteredInstructors.map((instructor) => (
                 <option key={instructor.id} value={instructor.id}>
                   {instructor.name} {instructor.surname}
                 </option>
